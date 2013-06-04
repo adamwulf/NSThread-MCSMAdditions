@@ -9,38 +9,38 @@
 #import "NSThread+MCSMAdditions.h"
 
 @implementation NSThread (MCSMAdditions)
-+ (void)MCSM_performBlockOnMainThread:(void (^)())block{
-	[[NSThread mainThread] MCSM_performBlock:block];
++ (void)performBlockOnMainThread:(void (^)())block{
+	[[NSThread mainThread] performBlock:block];
 }
 
-+ (void)MCSM_performBlockInBackground:(void (^)())block{
-	[NSThread performSelectorInBackground:@selector(MCSM_runBlock:)
++ (void)performBlockInBackground:(void (^)())block{
+	[NSThread performSelectorInBackground:@selector(runBlock:)
                                withObject:[[block copy] autorelease]];
 }
 
-+ (void)MCSM_runBlock:(void (^)())block{
++ (void)runBlock:(void (^)())block{
 	block();
 }
 
 
-- (void)MCSM_performBlock:(void (^)())block{
+- (void)performBlock:(void (^)())block{
     
 	if ([[NSThread currentThread] isEqual:self])
         block();
 	else
-        [self MCSM_performBlock:block waitUntilDone:NO];
+        [self performBlock:block waitUntilDone:NO];
 }
-- (void)MCSM_performBlock:(void (^)())block waitUntilDone:(BOOL)wait{
+- (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait{
     
-	[NSThread performSelector:@selector(MCSM_runBlock:)
+	[NSThread performSelector:@selector(runBlock:)
 					 onThread:self
 				   withObject:[[block copy] autorelease]
 				waitUntilDone:wait];
 }
 
-- (void)MCSM_performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay{
+- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay{
     
-	[self performSelector:@selector(MCSM_performBlock:) 
+	[self performSelector:@selector(performBlock:) 
 			   withObject:[[block copy] autorelease] 
                afterDelay:delay];
 }

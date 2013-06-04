@@ -10,11 +10,11 @@
 
 @interface NSThread (MCSMAdditions)
 
-+ (void)MCSM_performBlockOnMainThread:(void (^)())block;
-+ (void)MCSM_performBlockInBackground:(void (^)())block;
-+ (void)MCSM_runBlock:(void (^)())block;
-- (void)MCSM_performBlock:(void (^)())block;
-- (void)MCSM_performBlock:(void (^)())block waitUntilDone:(BOOL)wait;
-- (void)MCSM_performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay;
++ (void)performBlockOnMainThread:(void (^)())block;
++ (void)performBlockInBackground:(void (^)())block;
++ (void)runBlock:(void (^)())block;
+- (void)performBlock:(void (^)())block;
+- (void)performBlock:(void (^)())block waitUntilDone:(BOOL)wait;
+- (void)performBlock:(void (^)())block afterDelay:(NSTimeInterval)delay;
 
 @end
